@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculateur de coefficient de cession de droit</title>
+    <title>Calculateur de cession de droit</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
@@ -133,15 +133,13 @@
                 const duration = parseInt(document.getElementById('duration').value);
                 const modifications = parseInt(document.getElementById('modifications').value);
 
-                let score = 0;
-
-                score += scope + usage + exclusivity + notoriety + duration + modifications;
+                let score = scope + usage + exclusivity + notoriety + duration + modifications;
 
                 const maxScore = 20; // Sum of maximum values for all fields
-                const coefficient = (score / maxScore) * 0.5;
+                const scaledScore = Math.round((score / maxScore) * 50);
 
                 result.innerHTML = `
-                    <p>Votre coefficient de cession de droit est : <strong>${coefficient.toFixed(2)}</strong></p>
+                    <p>Valeur de cession de droit : <strong>${scaledScore}</strong></p>
                 `;
             }
 
