@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculateur de coefficient de cession de droit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: white;
+            padding: 20px;
+        }
+        .calculator {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            width: 100%;
+            max-width: 500px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 30px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #444;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        #result {
+            margin-top: 30px;
+            font-weight: 600;
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+        }
+        .emoji {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculateur de cession de droit</h1>
+        <form id="rightsCessionCalculator">
+            <div class="question">
+                <label for="scope"><span class="emoji">📏</span>Étendue de la cession :</label>
+                <select id="scope" name="scope">
+                    <option value="1">Utilisation unique</option>
+                    <option value="2">Cession limitée</option>
+                    <option value="3">Cession totale</option>
+                </select>
+            </div>
+            <div class="question">
+                <label for="usage"><span class="emoji">🎯</span>Type d'utilisation :</label>
+                <select id="usage" name="usage">
+                    <option value="1">Usage interne</option>
+                    <option value="2">Usage éditorial</option>
+                    <option value="3">Usage commercial</option>
+                    <option value="4">Usage publicitaire</option>
+                </select>
+            </div>
+            <div class="question">
+                <label for="exclusivity"><span class="emoji">🔒</span>Exclusivité :</label>
+                <select id="exclusivity" name="exclusivity">
+                    <option value="1">Non-exclusive</option>
+                    <option value="2">Exclusive</option>
+                </select>
+            </div>
+            <div class="question">
+                <label for="notoriety"><span class="emoji">🌟</span>Notoriété du créateur :</label>
+                <select id="notoriety" name="notoriety">
+                    <option value="1">Débutant</option>
+                    <option value="2">Expérimenté</option>
+                    <option value="3">Reconnu</option>
+                    <option value="4">Célèbre</option>
+                </select>
+            </div>
+            <div class="question">
+                <label for="duration"><span class="emoji">⏳</span>Durée de la cession :</label>
+                <select id="duration" name="duration">
+                    <option value="1">Courte durée (< 1 an)</option>
+                    <option value="2">Moyenne durée (1-5 ans)</option>
+                    <option value="3">Longue durée (> 5 ans)</option>
+                    <option value="4">Perpétuelle</option>
+                </select>
+            </div>
+            <div class="question">
+                <label for="modifications"><span class="emoji">✏️</span>Droit de modification :</label>
+                <select id="modifications" name="modifications">
+                    <option value="1">Aucune modification autorisée</option>
+                    <option value="2">Modifications mineures autorisées</option>
+                    <option value="3">Modifications majeures autorisées</option>
+                </select>
+            </div>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('rightsCessionCalculator');
+            const result = document.getElementById('result');
+            const inputs = form.querySelectorAll('select');
+
+            function updateResult() {
+                const scope = parseInt(document.getElementById('scope').value);
+                const usage = parseInt(document.getElementById('usage').value);
+                const exclusivity = parseInt(document.getElementById('exclusivity').value);
+                const notoriety = parseInt(document.getElementById('notoriety').value);
+                const duration = parseInt(document.getElementById('duration').value);
+                const modifications = parseInt(document.getElementById('modifications').value);
+
+                let score = 0;
+
+                score += scope + usage + exclusivity + notoriety + duration + modifications;
+
+                const maxScore = 20; // Sum of maximum values for all fields
+                const coefficient = (score / maxScore) * 0.5;
+
+                result.innerHTML = `
+                    <p>Votre coefficient de cession de droit est : <strong>${coefficient.toFixed(2)}</strong></p>
+                `;
+            }
+
+            inputs.forEach(input => {
+                input.addEventListener('change', updateResult);
+            });
+
+            updateResult();
+        });
+    </script>
+</body>
+</html>
