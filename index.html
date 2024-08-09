@@ -40,12 +40,15 @@
             font-weight: 500;
             color: #444;
         }
-        select {
+        input[type="range"] {
             width: 100%;
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
         }
         #result {
             margin-top: 30px;
@@ -67,53 +70,59 @@
         <form id="rightsCessionCalculator">
             <div class="question">
                 <label for="scope"><span class="emoji">📏</span>Étendue de la cession :</label>
-                <select id="scope" name="scope">
-                    <option value="1">Utilisation unique</option>
-                    <option value="2">Cession limitée</option>
-                    <option value="3">Cession totale</option>
-                </select>
+                <input type="range" id="scope" name="scope" min="1" max="3" step="1" value="2">
+                <div class="range-labels">
+                    <span>Unique</span>
+                    <span>Limitée</span>
+                    <span>Totale</span>
+                </div>
             </div>
             <div class="question">
                 <label for="usage"><span class="emoji">🎯</span>Type d'utilisation :</label>
-                <select id="usage" name="usage">
-                    <option value="1">Usage interne</option>
-                    <option value="2">Usage éditorial</option>
-                    <option value="3">Usage commercial</option>
-                    <option value="4">Usage publicitaire</option>
-                </select>
+                <input type="range" id="usage" name="usage" min="1" max="4" step="1" value="2">
+                <div class="range-labels">
+                    <span>Interne</span>
+                    <span>Éditorial</span>
+                    <span>Commercial</span>
+                    <span>Publicitaire</span>
+                </div>
             </div>
             <div class="question">
                 <label for="exclusivity"><span class="emoji">🔒</span>Exclusivité :</label>
-                <select id="exclusivity" name="exclusivity">
-                    <option value="1">Non-exclusive</option>
-                    <option value="2">Exclusive</option>
-                </select>
+                <input type="range" id="exclusivity" name="exclusivity" min="1" max="2" step="1" value="1">
+                <div class="range-labels">
+                    <span>Non-exclusive</span>
+                    <span>Exclusive</span>
+                </div>
             </div>
             <div class="question">
                 <label for="notoriety"><span class="emoji">🌟</span>Notoriété du créateur :</label>
-                <select id="notoriety" name="notoriety">
-                    <option value="1">Débutant</option>
-                    <option value="2">Expérimenté</option>
-                    <option value="3">Reconnu</option>
-                    <option value="4">Célèbre</option>
-                </select>
+                <input type="range" id="notoriety" name="notoriety" min="1" max="4" step="1" value="2">
+                <div class="range-labels">
+                    <span>Débutant</span>
+                    <span>Expérimenté</span>
+                    <span>Reconnu</span>
+                    <span>Célèbre</span>
+                </div>
             </div>
             <div class="question">
                 <label for="duration"><span class="emoji">⏳</span>Durée de la cession :</label>
-                <select id="duration" name="duration">
-                    <option value="1">Courte durée (< 1 an)</option>
-                    <option value="2">Moyenne durée (1-5 ans)</option>
-                    <option value="3">Longue durée (> 5 ans)</option>
-                    <option value="4">Perpétuelle</option>
-                </select>
+                <input type="range" id="duration" name="duration" min="1" max="4" step="1" value="2">
+                <div class="range-labels">
+                    <span>< 1 an</span>
+                    <span>1-5 ans</span>
+                    <span>> 5 ans</span>
+                    <span>Perpétuelle</span>
+                </div>
             </div>
             <div class="question">
                 <label for="modifications"><span class="emoji">✏️</span>Droit de modification :</label>
-                <select id="modifications" name="modifications">
-                    <option value="1">Aucune modification autorisée</option>
-                    <option value="2">Modifications mineures autorisées</option>
-                    <option value="3">Modifications majeures autorisées</option>
-                </select>
+                <input type="range" id="modifications" name="modifications" min="1" max="3" step="1" value="2">
+                <div class="range-labels">
+                    <span>Aucune</span>
+                    <span>Mineure</span>
+                    <span>Majeure</span>
+                </div>
             </div>
         </form>
         <div id="result"></div>
@@ -123,7 +132,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('rightsCessionCalculator');
             const result = document.getElementById('result');
-            const inputs = form.querySelectorAll('select');
+            const inputs = form.querySelectorAll('input[type="range"]');
 
             function updateResult() {
                 const scope = parseInt(document.getElementById('scope').value);
@@ -144,7 +153,7 @@
             }
 
             inputs.forEach(input => {
-                input.addEventListener('change', updateResult);
+                input.addEventListener('input', updateResult);
             });
 
             updateResult();
